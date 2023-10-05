@@ -1,0 +1,99 @@
+% This is a paper template using the LLNCS macro package for Springer Computer Science proceedings;
+% Version 2.20 of 2017/10/04
+%
+\documentclass[runningheads]{llncs}
+%
+% A lot of package loading
+\usepackage[pdftex]{graphicx}
+\usepackage{geometry}
+\usepackage[cmex10]{amsmath}
+\usepackage{array, algpseudocode}
+\usepackage{amsmath, amssymb, amsfonts, parskip, graphicx, verbatim}
+\usepackage{url, hyperref}
+\usepackage{bm, rotating, adjustbox, latexsym}
+\usepackage{tabularx, booktabs}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\usepackage{float, setspace, mdframed}
+\usepackage{color, contour, placeins, subfig, cite}
+\usepackage[mathscr]{euscript}
+\usepackage[osf]{mathpazo}
+\usepackage{pgf, tikz, microtype, algorithm}
+\usetikzlibrary{shapes,backgrounds,calc,arrows}
+\usepackage{xcolor, colortbl, dsfont}
+\usepackage{xspace}
+
+
+
+\begin{document}
+%
+\title{NaCo 23/24 assignment 1 report}
+
+\author{First and last name of each student in the group}
+%
+\authorrunning{NaCo 23/24}
+
+\institute{Group number $999$}
+%
+\maketitle % typeset the header of the contribution
+%
+
+\begin{abstract}
+This document contains the instructions and the format for the report required for submission of the practical assignment for the course Natural Computing. 
+\end{abstract}
+
+\section{Introduction}
+This document serves as a \textit{description of the practical assignment} for the course Natural Computing in the academic year 2023/2024. 
+In this assignment, you will work with Cellular Automata, and will be asked to provide the following:
+\begin{itemize}
+    \item An implementation of a 1-dimensional, binary-state cellular automaton (in Python) which operates on arrays of size 60
+    \item a report, written and formatted as a \textit{scientific paper}, using this template, containing:
+    \begin{itemize}
+        \item A clear description of the CA, the different classes and measures of their behavior
+        \item The analysis of the behavior of CAs from different Wolfram classes
+        \item A review of an application of CA in practice
+    \end{itemize}
+\end{itemize}
+
+To help structure your report, we provide a \textit{brief report outline} in this document. Please complete the following sections with your own results, explanations, and conclusions. This includes the abstract and this introduction! For this section: introduce what the paper is about and provide a background to any relevant literature (using proper citations, e.g. ~\cite{wolfram1983statistical}).
+
+\section{Problem Description}\label{sect:descr}
+
+Give a general overview of the working principles of a Cellular Automaton (CA), including the Wolfram classification system. 
+
+You should also describe the various aspects of CA behavior you want to measure, and motivate why these properties should be analyzed. Some examples include the number of zero cells in each iteration, the number of cells changed in each iteration, the longest string of equal symbols, etc. At least two of such measures should be included in your report. For each of these measures, describe what you would expect to happen for CA's of each of the 4 Wolfram classes, and try to motivate your expectation. 
+
+
+\textbf{Note:} You should not describe your code, but only the core aspects of CA, your measures, and other relevant details for your experiments. Your report should read like a short academic research paper. 
+
+\section{Results}
+When you have finished your implementation and can successfully pass the test function, you should track each of your measures for at least one CA of each Wolfram Class\footnote{See the table in the slides for the classification.}. 
+
+Make some plots of your observations, and discuss the differences you find between the CAs. Remember that you should not just run each CA once, as the initial setting of your states will impact the measure!  Be sure to discuss the results in sufficient detail (don't just repeat what is shown in the figure, but try to highlight why you get these results or what we can learn from them). 
+
+\section{Application of CA in practice}
+Search in the literature for one paper that makes use of a CA outside of the field of computer science. Minor students are encouraged to take the lead in writing this section. Summarize the paper, describe the application, and add any relevant literature to this section, be sure to answer at least the following questions about the paper: 
+\begin{itemize}
+    \item What kind of CA was used (dimensionality, states, transition rules,\dots)? 
+    \item Describe the field and context.
+    \item Why did the researchers choose a CA for their application, and were there any alternatives?
+    \item Was their approach successful? Interpret their results.
+    \item Give your opinion on their approach. Would you have you have used a CA in their situation?
+    \item How would you improve on their setup? 
+\end{itemize}
+
+
+\section{Conclusion}
+Write a \textbf{short} conclusion summarizing the most important findings of this assignment. 
+
+\appendix
+\section{Appendix}
+\subsection{Submission, review and grading}\label{sec:submission}
+
+For this assignment, \textbf{you should submit the full report in this template}. Please be sure not to exceed the \textbf{limit of 6 pages} for this report, excluding references.
+
+Submission should be done on Brightspace, and should include your report in PDF format and your code as a Python file.  Make sure that the code is readable: clear variable names, comments, etc. 
+
+\bibliographystyle{splncs04}
+\bibliography{bibliography.bib}
+
+\end{document}
