@@ -27,11 +27,19 @@ class CellularAutomata:
             temp = []
             for i in range(len(c0)-2):
                 for key in environment_dict:
-                    print()
-                    # ToDo: waarom werkt onderstaande if statement niet
-                    if (c0[slice(i, i+3)] == key).all():
+                    # ToDo: get c0 slice & key in the same format
+                    if tuple(c0[slice(i, i+3)]) == key:
                         np.append(temp, environment_dict[key])
+                        print(key)
+                    else:
+                        print(tuple(c0[slice(i, i+3)]))
+                        # (0, 0, 0)
+                        print("is not")
+                        print(key)
+                        # ('0', '0', '0')
+                
             t -= 1
+        print(temp)
         res = temp
         return res
 
