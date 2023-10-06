@@ -33,6 +33,9 @@ class CellularAutomata:
                     if slice == key:
                         temp.append(environment_dict[key])
             t -= 1
+            # TODO: hou per t de ct bij in een history variabele, zodat we ook het aantal veranderde cellen per
+            #  discrete tijdstap kunnen bijhouden en de langste string van hetzelfde symbool
+            #  (zie 2. Problem Description). Ik zou dit persoonlijk allemaal in een metadata dictionary oid zetten
         res = temp
         return res
 
