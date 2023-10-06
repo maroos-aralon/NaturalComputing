@@ -21,25 +21,18 @@ class CellularAutomata:
         temp = []
         while t > 0:
             if temp:
-                c0 = temp
-            np.insert(c0, 0, 0)
-            np.append(c0, 0)
+                c0list = temp
+            else:
+                c0list = c0.tolist()
+            c0list.insert(0, 0)
+            c0list.append(0)
             temp = []
-            for i in range(len(c0)-2):
+            for i in range(len(c0list)-2):
                 for key in environment_dict:
-                    # ToDo: get c0 slice & key in the same format
-                    if tuple(c0[slice(i, i+3)]) == key:
-                        np.append(temp, environment_dict[key])
-                        print(key)
-                    else:
-                        print(tuple(c0[slice(i, i+3)]))
-                        # (0, 0, 0)
-                        print("is not")
-                        print(key)
-                        # ('0', '0', '0')
-                
+                    slice = (str(c0list[i]), str(c0list[i + 1]), str(c0list[i + 2]))
+                    if slice == key:
+                        temp.append(environment_dict[key])
             t -= 1
-        print(temp)
         res = temp
         return res
 
