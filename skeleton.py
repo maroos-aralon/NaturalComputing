@@ -6,8 +6,6 @@ class CellularAutomata:
 
     def __init__(self, rule_number: int):
         """Intialize the cellular automaton with a given rule number"""
-        # TODO change rule number into
-
 
     def __call__(self, c0: typing.List[int], t: int) -> typing.List[int]:
         """Evaluate for T timesteps. Return Ct for a given C0."""
