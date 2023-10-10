@@ -1,5 +1,6 @@
 import typing
 import numpy as np
+# import matplotlib.pyplot as plt - het zou leuk zijn om dmw matplotlib de CA te visualizeren, maar dat is iets dat we op het einde kunnen doen
 
 
 class CellularAutomata:
@@ -16,14 +17,15 @@ class CellularAutomata:
         for i in reversed(range(8)):
             environments.append(tuple(np.binary_repr(i, 3)))
         environment_dict = dict(zip(environments, binary_rule))
-        # value rule 30: {('1', '1', '1'): 0, ('1', '1', '0'): 0, ('1', '0', '1'): 0, ('1', '0', '0'): 1,
-        # ('0', '1', '1'): 1, ('0', '1', '0'): 1, ('0', '0', '1'): 1, ('0', '0', '0'): 0}
+        
         temp = []
+        history = [c0.tolist()]
+        intial_time = t
         while t > 0:
             if temp:
                 c0list = temp
             else:
-                c0list = c0.tolist()
+                c0list = history[0]
             c0list.insert(0, 0)
             c0list.append(0)
             temp = []
@@ -33,16 +35,28 @@ class CellularAutomata:
                     if slice == key:
                         temp.append(environment_dict[key])
             t -= 1
-            # TODO: hou per t de ct bij in een history variabele, zodat we ook het aantal veranderde cellen per
-            #  discrete tijdstap kunnen bijhouden en de langste string van hetzelfde symbool
-            #  (zie 2. Problem Description). Ik zou dit persoonlijk allemaal in een metadata dictionary oid zetten
+            history.append(temp)
+        
+        #### the following is a bit of convoluted code, but for now the only possibility to make it work
+        final_temp = temp.copy()
+        final_temp.insert(0,0)
+        final_temp.append(0)
+        history[-1] = final_temp
+        #########################
+
+        print(f'rule number: {self.rule_number}, t: {intial_time}')
+        for time in history:
+            print(time)
+        
         res = temp
-        return res
+        return res # wil graag ook een nieuwe functie maken die de "metadata" creëert en hem ook terugstuurt
+    # maar tot nu toe werkt dat nog niet in de classmethod
 
     @classmethod
     def test(cls, rule_number, c0, ct, t=1):
         ca = cls(rule_number)
         ct_prime = ca(c0, t)
+        
         assert all(trial == expected for trial, expected in zip(ct_prime, ct))
 
 
@@ -52,4 +66,5 @@ if __name__ == "__main__":
     x0[x0.size // 2] = 1
     CellularAutomata.test(0, x0, np.zeros(7, dtype=int)) # t = 1
     CellularAutomata.test(30, x0, [0, 1, 1, 0, 0, 1, 0], 2)
+    CellularAutomata.test(30, x0, [1, 1, 1, 1, 1, 0, 0], 5)
 
