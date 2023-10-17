@@ -10,6 +10,27 @@ class CellularAutomata:
         """Intialize the cellular automaton with a given rule number"""
         self.rule_number = rule_number
 
+    def metadata(self, history):
+        # TODO: the number of zero cells in each iteration, the number of cells changed in each iteration,
+        #  the longest string of equal symbols
+        cells_changed = []
+        zero_count = []
+        largest_equal = []  # bedoelen ze hiermee per tijdsstap of in totaal?
+        for t_i in range(len(history)):
+            t = history[t_i]
+            zero_count.append(t.count(0))
+            cells_changed.append(0)
+            if "prev_t" in locals():
+                for i in range(len(t)):
+                    if prev_t[i] != t[i]:
+                        cells_changed[t_i] += 1
+                prev_t = t
+            else:
+                prev_t = t
+                continue
+
+        return cells_changed, zero_count
+
     def __call__(self, c0: typing.List[int], t: int) -> typing.List[int]:
         """Evaluate for T timesteps. Return Ct for a given C0."""
         binary_rule = [eval(i) for i in list(f'{self.rule_number:08b}')]
@@ -20,7 +41,7 @@ class CellularAutomata:
         
         temp = []
         history = [c0.tolist()]
-        intial_time = t
+        initial_time = t
         while t > 0:
             if temp:
                 c0list = temp
@@ -37,20 +58,23 @@ class CellularAutomata:
             t -= 1
             history.append(temp)
         
-        #### the following is a bit of convoluted code, but for now the only possibility to make it work
+        # the following is a bit of convoluted code, but for now the only possibility to make it work
         final_temp = temp.copy()
-        final_temp.insert(0,0)
+        final_temp.insert(0, 0)
         final_temp.append(0)
         history[-1] = final_temp
         #########################
 
-        print(f'rule number: {self.rule_number}, t: {intial_time}')
-        for time in history:
-            print(time)
-        
+        metadata = self.metadata(history)
+
+        print(f'rule number: {self.rule_number}, t: {initial_time}')
+        for time in range(len(history)):
+            print(history[time])
+            print(f'Cells changed:{metadata[0][time]}')
+            print(f'Amount of zeros:{metadata[1][time]}')
+
         res = temp
-        return res # wil graag ook een nieuwe functie maken die de "metadata" creëert en hem ook terugstuurt
-    # maar tot nu toe werkt dat nog niet in de classmethod
+        return res
 
     @classmethod
     def test(cls, rule_number, c0, ct, t=1):
