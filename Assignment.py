@@ -41,6 +41,7 @@ class CellularAutomata:
         
         temp = []
         history = [c0.tolist()]
+        # history2 = [c0.tolist()]
         initial_time = t
         while t > 0:
             if temp:
@@ -55,6 +56,7 @@ class CellularAutomata:
                     slice = (str(c0list[i]), str(c0list[i + 1]), str(c0list[i + 2]))
                     if slice == key:
                         temp.append(environment_dict[key])
+                        # history2[i].append(environment_dict[key])
             t -= 1
             history.append(temp)
         
@@ -69,8 +71,8 @@ class CellularAutomata:
 
         print(f'rule number: {self.rule_number}, t: {initial_time}')
         for time in range(len(history)):
-            print(history[time])
-            print(f'Cells changed:{metadata[0][time]}')
+            print(history[time], end=" ")
+            print(f'Cells changed:{metadata[0][time]}', end=" ")
             print(f'Amount of zeros:{metadata[1][time]}')
 
         res = temp
@@ -88,7 +90,7 @@ if __name__ == "__main__":
     "If the following statements do not produce an error, your CA works correctly."
     x0 = np.zeros(7, dtype=int)
     x0[x0.size // 2] = 1
-    CellularAutomata.test(0, x0, np.zeros(7, dtype=int)) # t = 1
+    CellularAutomata.test(0, x0, np.zeros(7, dtype=int))  # t = 1
     CellularAutomata.test(30, x0, [0, 1, 1, 0, 0, 1, 0], 2)
     CellularAutomata.test(30, x0, [1, 1, 1, 1, 1, 0, 0], 5)
 
