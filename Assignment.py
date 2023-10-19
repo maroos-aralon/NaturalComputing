@@ -14,8 +14,6 @@ class CellularAutomata:
     def metadata(self, history):
         cells_changed = []
         zero_count = []
-        largest_equal = []  # bedoelen ze hiermee per tijdsstap of in totaal?
-        # /\ lijkt me trouwens niet perse nodig voor het bepalen van Wolfram class
 
         for t_i in range(len(history)):
             t = history[t_i]
@@ -61,18 +59,17 @@ class CellularAutomata:
             t -= 1
             history.append(temp)
 
-        # the following is a bit of convoluted code, but for now the only possibility to make it work
         final_temp = temp.copy()
         final_temp.insert(0, 0)
         final_temp.append(0)
         history[-1] = final_temp
-        #########################
 
         # Printing metadata
         metadata = self.metadata(history)
         print(f'rule number: {self.rule_number}, t: {initial_time}')
         for time in range(len(history)):
             print(f't:{time}', end=" ")
+            # instead of plotting, you can also print each timestep:
             # print(history[time], end=" ")
             print(f'Cells changed:{metadata[0][time]}', end=" ")
             print(f'Amount of zeros:{metadata[1][time]}')
@@ -111,13 +108,30 @@ if __name__ == "__main__":
     CellularAutomata.test(30, x0, [1, 1, 1, 1, 1, 0, 0], 5)
 
     # own input
-    x0 = np.zeros(30, dtype=int)
+    # one in the centre
+    x0 = np.zeros(60, dtype=int)
     x0[x0.size // 2] = 1
 
-    CellularAutomata.run(30, x0, 10)
     CellularAutomata.run(49, x0, 40)
-    CellularAutomata.run(13, x0, 40)
-    CellularAutomata.run(45, x0, 40)
-    CellularAutomata.run(129, x0, 100)
+    CellularAutomata.run(110, x0, 100)
+    CellularAutomata.run(120, x0, 100)
+    CellularAutomata.run(165, x0, 100)
+
+    # one in the centre + 3 ones at fifth + 1 one at third
+    x0[x0.size // 3] = 1
+    x0[(x0.size // 5):(x0.size // 5)+3] = 1
+
+    CellularAutomata.run(49, x0, 40)
+    CellularAutomata.run(110, x0, 100)
+    CellularAutomata.run(120, x0, 100)
+    CellularAutomata.run(165, x0, 100)
+
+    # randomly generated starting structure
+    x0 = np.random.randint(2, size=60)
+    CellularAutomata.run(49, x0, 40)
+    CellularAutomata.run(110, x0, 100)
+    CellularAutomata.run(120, x0, 100)
+    CellularAutomata.run(165, x0, 100)
+
 
 
